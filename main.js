@@ -1,3 +1,9 @@
+const urlInfo = {
+    baseUrl:'https://jsonmock.hackerrank.com/api',
+    endPoint:'/countries',
+    field:'?name='
+}
+
 const input = {
     country: 'Afghanistan',
     phoneNumber: 656445445
@@ -20,8 +26,9 @@ const getCallingCode = (countryData) => {
     return result
 }
 
-const getPhoneNumbers = async (countryInput) => {
-    const request = await fetch(`https://jsonmock.hackerrank.com/api/countries?name=${countryInput.country}`)
+const getPhoneNumbers = async (countryInput, urlInfo) => {
+    const {baseUrl, endPoint, field} = urlInfo
+    const request = await fetch(`${baseUrl}${endPoint}${field}${countryInput.country}`)
     const data = await request.json()
     const countryData = extractCountryData(data)
     const callingCode = getCallingCode(countryData)
@@ -30,6 +37,6 @@ const getPhoneNumbers = async (countryInput) => {
     return result
 }
 
-getPhoneNumbers(input)
+getPhoneNumbers(input, urlInfo)
 
 
